@@ -235,20 +235,7 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  let time;
-  if (minutes < 10 && seconds < 10) {
-    time = `0${minutes}:0${seconds}`;
-  }
-  if (minutes < 10 && seconds >= 10) {
-    time = `0${minutes}:${seconds}`;
-  }
-  if (minutes >= 10 && seconds < 10) {
-    time = `${minutes}:0${seconds}`;
-  }
-  if (minutes >= 10 && seconds >= 10) {
-    time = `${minutes}:${seconds}`;
-  }
-  return time;
+  return `${String(minutes).padStart(2, 0)}:${String(seconds).padStart(2, 0)}`;
 }
 
 /**
