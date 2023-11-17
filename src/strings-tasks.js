@@ -69,7 +69,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value.length > 0 ? value[0] : '';
+  return value.charAt(0);
 }
 
 /**
@@ -147,7 +147,13 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, '');
+  if (str.indexOf(value) !== -1) {
+    return (
+      str.slice(0, str.indexOf(value)) +
+      str.slice(str.indexOf(value) + value.length)
+    );
+  }
+  return str;
 }
 
 /**
@@ -178,8 +184,11 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  if (Boolean(str) === false) {
+    return 0;
+  }
+  return str.split('').reduce((acc, current) => acc + current.charCodeAt(), 0);
 }
 
 /**
@@ -367,8 +376,11 @@ function findLongestWord(sentence) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  return str
+    .split(' ')
+    .reduce((acc, curr) => acc.concat(' ', reverseString(curr)), '')
+    .slice(1);
 }
 
 /**
@@ -503,8 +515,13 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const ranks = 'A234567891JQK';
+  const symbols = '♣♦♥♠';
+  return (
+    symbols.indexOf(value.slice(-1)) * ranks.length +
+    ranks.indexOf(value.slice(0, 1))
+  );
 }
 
 module.exports = {
