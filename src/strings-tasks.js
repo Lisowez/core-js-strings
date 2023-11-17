@@ -168,8 +168,12 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const position = str.lastIndexOf(value);
+  if (position !== -1) {
+    return str.slice(0, position) + str.slice(position + value.length);
+  }
+  return str;
 }
 
 /**
@@ -474,8 +478,20 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const liters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz';
+  let strCode = '';
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (liters.indexOf(str[i]) === -1) {
+      strCode += str[i];
+    } else {
+      strCode += str[i].replace(str[i], liters[liters.indexOf(str[i]) + 13]);
+    }
+  }
+
+  return strCode;
 }
 
 /**
